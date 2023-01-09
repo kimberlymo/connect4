@@ -61,4 +61,18 @@ class Connect4MainTest implements WithAssertions {
 		var blue = new Connect4ArenaMain.GreedyPlayer();
 		assertThat(newInstance().play(red, blue)).isSameAs(red);
 	}
+
+	@Test
+	void randomPlayerVsPerfectPlayer() {
+		var red = new Connect4ArenaMain.GreedyPlayer();
+		var blue = new PerfectPlayer(6);
+		assertThat(newInstance().play(red, blue)).isSameAs(blue);
+	}
+
+	@Test
+	void perfectPlayerVsPerfectPlayer() {
+		var red = new PerfectPlayer(6);
+		var blue = new PerfectPlayer(6);
+		assertThat(newInstance().play(red, blue)).isSameAs(blue);
+	}
 }
