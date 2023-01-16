@@ -13,3 +13,16 @@ A start of a project implementing a variant of the game "Connect Four".
 - https://de.wikipedia.org/wiki/Minimax-Algorithmus#Implementierung
 - https://de.wikipedia.org/wiki/Alpha-Beta-Suche#Implementierung
 - https://en.wikipedia.org/wiki/Zobrist_hashing
+
+
+min:
+ein State der läuft: MinMax, isWinning ist korrekt
+viele Inlinekommentare
+Selbstevaluation
+weiteres:
+algorithmische Optimierungen, AlphaBeta,...
+MoveOrdering
+Caching: Zobrist
+BitBoard
+OpeningBook
+endziel: Perfect Solver

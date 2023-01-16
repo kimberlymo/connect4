@@ -13,8 +13,10 @@ public class Connect4ArenaMain {
     static final int WIDTH = 7;
     static final int HEIGHT = 4;
     static final int NOMOVE = -1;
+    static int[][] hashBoard = new int[2][WIDTH * HEIGHT];
 
     public static void main(String[] args) {
+        //hashBoard = buildBoard();
         new Connect4ArenaMain().play(new HumanPlayer(), new PerfectPlayer(6));
     }
 
@@ -64,6 +66,16 @@ public class Connect4ArenaMain {
         return null; // null implies a draw
     }
 
+    public static int[][] buildBoard() {
+        int[][] keys = new int[2][WIDTH * HEIGHT];
+        // player red = 1; player blue = 0;
+        for (int i = 0; i < 1; i++) {
+            for (int j = 0; j < WIDTH * HEIGHT; j++) {
+                keys[i][j] = (int) Math.round(Math.random());
+            }
+        }
+        return keys;
+    }
 
     public static boolean isWinning(Stone[] board, Stone forColor) {
         boolean b = false;
