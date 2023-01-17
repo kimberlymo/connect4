@@ -13,6 +13,7 @@ public class PerfectPlayer extends Connect4ArenaMain.DefaultPlayer {
     @Override
     int play() {
         startTime = System.currentTimeMillis();
+        // all moves that are available = maxDepth
         int movesAvailable = countMoves();
         // once the limit is exceeded one more run will be done
         for (int distance = 1; distance < movesAvailable && System.currentTimeMillis() - startTime < TIME_LIMIT_MILLIS; distance++) {
