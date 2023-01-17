@@ -14,15 +14,22 @@ A start of a project implementing a variant of the game "Connect Four".
 - https://de.wikipedia.org/wiki/Alpha-Beta-Suche#Implementierung
 - https://en.wikipedia.org/wiki/Zobrist_hashing
 
+## Übersicht
+Beim commit "perfectPlayer is working" funktioniert der alpha-beta einwandfrei. Der aktuelle Stand funktioniert auch gut mit Iterative Deepening, aber er spielt ein bisschen schlechter.
+Der aktuelle Stand kann bewertet werden.
 
-min:
-ein State der läuft: MinMax, isWinning ist korrekt
-viele Inlinekommentare
-Selbstevaluation
-weiteres:
-algorithmische Optimierungen, AlphaBeta,...
-MoveOrdering
-Caching: Zobrist
-BitBoard
-OpeningBook
-endziel: Perfect Solver
+## Anforderungen
+### min:
+- ein State der läuft: MinMax, isWinning ist korrekt ✔
+- viele Inlinekommentare ✔
+- Selbstevaluation ✔
+### weiteres:
+- algorithmische Optimierungen, AlphaBeta, ... ✔
+- MoveOrdering
+- Iterative Deepening ✔
+- BitBoard
+- OpeningBook
+- Endziel: Perfect Solver ✔
+
+## Selbstevaluation
+In meiner Selbstevaluation möchte ich erwähnen, dass ich alle mindest Anforderungen des Projekts erfüllt habe. Ich war sogar in der Lage gewesen, zwei erweiterte Aufgaben erfolgreich zu lösen, eine davon war die Anwendung von Alpha-Beta-Pruning und die andere war die Anwendung von Iterative Deepening. Der Player, den ich entwickelt habe, funktioniert fast perfekt und konnte sowohl gegen den greedyPlayer als auch gegen eine Person gewinnen. Ich erwarte eine mindest Note von 5.25 für meine Leistungen.

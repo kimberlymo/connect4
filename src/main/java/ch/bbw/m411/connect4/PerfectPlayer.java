@@ -3,22 +3,22 @@ package ch.bbw.m411.connect4;
 import static ch.bbw.m411.connect4.Connect4ArenaMain.*;
 
 public class PerfectPlayer extends Connect4ArenaMain.DefaultPlayer {
-    int hash = 0;
     private int bestMove = NOMOVE;
+    private static final long TIME_LIMIT_MILLIS = 1250; // time limit for iterative deepening
     private static final int WIN_VALUE = 1000; // something less than INFINITY but more than max of evaluate()
-    private static final int INFINITY = 100000; // not MIN_VALUE as Integer.MIN_VALUE != -Integer.MAX_VALUE
-    private final int maxDepth;
-    private int minDepth;
-
-    public PerfectPlayer(int maxDepth) {
-        this.maxDepth = maxDepth;
-    }
+    private static final int INFINITY = 100000; // a very high value
+    private int startDepth; // the start number of depth before alpha-beta starts for example 1
+    private long startTime;
 
     @Override
     int play() {
+        startTime = System.currentTimeMillis();
         int movesAvailable = countMoves();
-        minDepth = Math.min(movesAvailable, maxDepth);
-        alphaBeta(myColor, movesAvailable, minDepth, -INFINITY, INFINITY);
+        // once the limit is exceeded one more run will be done
+        for (int distance = 1; distance < movesAvailable && System.currentTimeMillis() - startTime < TIME_LIMIT_MILLIS; distance++) {
+            startDepth = distance;
+            alphaBeta(myColor, movesAvailable, distance, -INFINITY, INFINITY);
+        }
         return bestMove;
     }
 
@@ -37,6 +37,7 @@ public class PerfectPlayer extends Connect4ArenaMain.DefaultPlayer {
 
         int bestScore = alpha;
         for (int i = 0; i < WIDTH * HEIGHT; i++) {
+            // is the current position free and can the stone be placed here
             if (board[i] == null && (i < WIDTH || board[i - WIDTH] != null)) {
                 board[i] = player;
                 int score = -alphaBeta(player.opponent(), freeCount - 1, depth - 1, -beta, -bestScore);
@@ -45,7 +46,7 @@ public class PerfectPlayer extends Connect4ArenaMain.DefaultPlayer {
                 // will only go in if-clause, when the algorithm has found the best way
                 if (bestScore < score) {
                     bestScore = score;
-                    if (depth == minDepth) {
+                    if (depth == startDepth) {
                         System.out.println("position " + i + " has new best value " + score);
                         // will set the best move
                         bestMove = i;
@@ -54,7 +55,7 @@ public class PerfectPlayer extends Connect4ArenaMain.DefaultPlayer {
                     if (bestScore >= beta) {
                         break;
                     }
-                } else if (depth == minDepth) {
+                } else if (depth == startDepth) {
                     System.out.println("position " + i + " isn't better with value " + score);
                 }
             }
@@ -73,19 +74,21 @@ public class PerfectPlayer extends Connect4ArenaMain.DefaultPlayer {
     }
 
     private int evaluate(Connect4ArenaMain.Stone curPlayer) {
-        var scores = new int[]{
+        // board with scores so the perfectPlayer knows which positions are prioritised
+        int[] scores = new int[]{
                 3, 4, 6, 7, 6, 4, 3,
                 2, 4, 6, 7, 6, 4, 2,
                 2, 4, 6, 7, 6, 4, 2,
                 3, 4, 6, 7, 6, 4, 3
         };
 
-        var playerScore = 0;
+        int playerScore = 0;
 
         for (int i = 0; i < WIDTH * HEIGHT; i++) {
             if (board[i] == curPlayer) {
                 playerScore += scores[i];
             } else if (board[i] == curPlayer.opponent()) {
+                // will subtract score, because opponent has a stone there
                 playerScore -= scores[i];
             }
         }
