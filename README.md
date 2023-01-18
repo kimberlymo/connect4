@@ -25,11 +25,11 @@ Der aktuelle Stand kann bewertet werden.
 - Selbstevaluation ✔
 ### weiteres:
 - algorithmische Optimierungen, AlphaBeta, ... ✔
-- MoveOrdering
+- MoveOrdering ✔
 - Iterative Deepening ✔
 - BitBoard
 - OpeningBook
 - Endziel: Perfect Solver ✔
 
 ## Selbstevaluation
-In meiner Selbstevaluation möchte ich erwähnen, dass ich alle mindest Anforderungen des Projekts erfüllt habe. Ich war sogar in der Lage gewesen, zwei erweiterte Aufgaben erfolgreich zu lösen, eine davon war die Anwendung von Alpha-Beta-Pruning und die andere war die Anwendung von Iterative Deepening. Der Player, den ich entwickelt habe, funktioniert fast perfekt und konnte sowohl gegen den greedyPlayer als auch gegen eine Person gewinnen. Ich erwarte eine mindest Note von 5.25 für meine Leistungen.
+In meiner Selbstevaluation möchte ich erwähnen, dass ich alle mindest Anforderungen des Projekts erfüllt habe. Ich war sogar in der Lage gewesen, zwei erweiterte Aufgaben erfolgreich zu lösen, eine davon war die Anwendung von MoveOrdering und die andere war die Anwendung von Iterative Deepening. Dazu konnte ich auch das Alpha-Beta-Pruning hinzufügen, um den Player performanter zu machen. Der Player, den ich entwickelt habe, funktioniert fast perfekt und konnte sowohl gegen den greedyPlayer als auch gegen eine Person gewinnen. Ich erwarte eine mindest Note von 5.25 für meine Leistungen.
