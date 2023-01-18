@@ -1,5 +1,8 @@
 package ch.bbw.m411.connect4;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static ch.bbw.m411.connect4.Connect4ArenaMain.*;
 
 public class PerfectPlayer extends Connect4ArenaMain.DefaultPlayer {
@@ -23,6 +26,13 @@ public class PerfectPlayer extends Connect4ArenaMain.DefaultPlayer {
         return bestMove;
     }
 
+    /**
+     *
+     * @param player that needs to make a move
+     * @param freeCount maxDepth or all free fields
+     * @param depth how many times the perfectPlayer has to mimic moves
+     * @return calculated score
+     */
     private int alphaBeta(Connect4ArenaMain.Stone player, int freeCount, int depth, int alpha, int beta) {
         if (isWinning(board, player.opponent())) {
             return -WIN_VALUE; // we lost
@@ -36,8 +46,9 @@ public class PerfectPlayer extends Connect4ArenaMain.DefaultPlayer {
             return evaluate(player); // it is a draw
         }
 
+        // will set the bestScore as worst
         int bestScore = alpha;
-        for (int i = 0; i < WIDTH * HEIGHT; i++) {
+        for (int i : getPossiblePositions()) {
             // is the current position free and can the stone be placed here
             if (board[i] == null && (i < WIDTH || board[i - WIDTH] != null)) {
                 board[i] = player;
@@ -64,6 +75,26 @@ public class PerfectPlayer extends Connect4ArenaMain.DefaultPlayer {
         return bestScore;
     }
 
+    /**
+     * Will get all prioritized, possible positions to play on.
+     * @return possible moves
+     */
+    private ArrayList<Integer> getPossiblePositions() {
+        ArrayList<Integer> positions = new ArrayList<>();
+
+        for (Integer i : List.of(3, 2, 4, 1, 5, 0, 6)){
+            for (int j = i; j < board.length; j += WIDTH) {
+                // if position is free, the current position will be added to the list
+                if (board[j] == null) {
+                    positions.add(j);
+                    break;
+                }
+            }
+        }
+        return positions;
+    }
+
+    // will count all free moves (as well as the ones that are NOT playable)
     private int countMoves() {
         int moves = 0;
         for (int i = 0; i < WIDTH * HEIGHT; i++) {
@@ -74,6 +105,12 @@ public class PerfectPlayer extends Connect4ArenaMain.DefaultPlayer {
         return moves;
     }
 
+    /**
+     * gives the current board a score for the current player
+     * Stones from the curPlayer will be added and stones from the opponent will be subtracted
+     * @param curPlayer player that is currently playing
+     * @return score
+     */
     private int evaluate(Connect4ArenaMain.Stone curPlayer) {
         // board with scores so the perfectPlayer knows which positions are prioritised
         int[] scores = new int[]{
